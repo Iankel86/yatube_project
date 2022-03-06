@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # Добавил в игнор сам
-.vscode/
+.vscode
