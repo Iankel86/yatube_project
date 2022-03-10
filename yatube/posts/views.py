@@ -13,4 +13,4 @@ def index(request):
 
 
 def group_posts(request, slug):
-    return HttpResponse('Страница с постом после фильтра по группе')
+    return HttpResponse(f'Страница с постом после фильтра по группе')
