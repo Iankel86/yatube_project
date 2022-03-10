@@ -14,3 +14,7 @@ def index(request):
 
 def group_posts(request, slug):
     return HttpResponse(f'Страница с постом после фильтра по группе')
+
+def group_list(request):
+    template = 'posts/group_list.html'
+    return render(request, template)
