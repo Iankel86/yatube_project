@@ -1,19 +1,45 @@
 from django.shortcuts import HttpResponse
 from django.shortcuts import render
 
-# Главная страница
+# Все функции прописаны в posts/urls.py 
 
+
+# Главная страница   (http://127.0.0.1:8000/)
 
 def index(request):
 #    return HttpResponse('Главная страница')
     template = 'posts/index.html'
-    return render(request, template)
+    title = 'Это главная страница проекта Yatube'
+    # Словарь с данными принято называть context
+    context = {
+        # В словарь можно передать переменную
+        'title': title,
+        # А можно сразу записать значение в словарь. Но обычно так не делают
+        # 'text': 'Главная страница',
+    }
+    return render(request, template, context)
 
-# Страница с постами
 
+# Страница с постами  (http://127.0.0.1:8000/group/any_slug/)
 
 def group_posts(request, slug):
-    return HttpResponse(f'Страница с постом после фильтра по группе')
+    template = 'posts/group_posts.html'
+    title = 'Здесь будет информация о группах проекта Yatube'
+    # Словарь с данными принято называть context
+    context = {
+        # В словарь можно передать переменную
+        'title': title,
+        # А можно сразу записать значение в словарь. Но обычно так не делают
+        # 'text': 'Здесь будет информация о группах проекта Yatube',
+    }
+    # Третьим параметром передаём словарь context
+    return render(request, template, context)
+
+#def group_posts(request, slug):
+#    return HttpResponse(f'Страница с постом после фильтра по группе')
+
+
+# Страница с биографией    (http://127.0.0.1:8000/group_list/)
 
 def group_list(request):
     template = 'posts/group_list.html'
