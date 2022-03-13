@@ -1,13 +1,14 @@
 #  from django.shortcuts import HttpResponse
 from django.shortcuts import render
-
+# Импортируем модель, чтобы обратиться к ней
+from .models import Post
 # Все функции прописаны в posts/urls.py
 
 
 # Главная страница   (http://127.0.0.1:8000/)
 
 def index(request):
-    #  return HttpResponse('Главная страница')
+
     template = 'posts/index.html'
     title = 'Это главная страница проекта Yatube'
     # Словарь с данными принято называть context
@@ -15,7 +16,7 @@ def index(request):
         # В словарь можно передать переменную
         'title': title,
         # А можно сразу записать значение в словарь. Но обычно так не делают
-        # 'text': 'Главная страница',
+
     }
     return render(request, template, context)
 
