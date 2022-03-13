@@ -1,13 +1,13 @@
-from django.shortcuts import HttpResponse
+#  from django.shortcuts import HttpResponse
 from django.shortcuts import render
 
-# Все функции прописаны в posts/urls.py 
+# Все функции прописаны в posts/urls.py
 
 
 # Главная страница   (http://127.0.0.1:8000/)
 
 def index(request):
-#    return HttpResponse('Главная страница')
+    #  return HttpResponse('Главная страница')
     template = 'posts/index.html'
     title = 'Это главная страница проекта Yatube'
     # Словарь с данными принято называть context
@@ -20,7 +20,8 @@ def index(request):
     return render(request, template, context)
 
 
-# Страница с постами  (http://127.0.0.1:8000/group/any_slug/)
+#  Страница с постами  (http://127.0.0.1:8000/group/any_slug/)
+#  Знаю, знаю, зря создал новый шаблон, хотел попробывать =)
 
 def group_posts(request, slug):
     template = 'posts/group_posts.html'
@@ -35,7 +36,7 @@ def group_posts(request, slug):
     # Третьим параметром передаём словарь context
     return render(request, template, context)
 
-#def group_posts(request, slug):
+#  def group_posts(request, slug):
 #    return HttpResponse(f'Страница с постом после фильтра по группе')
 
 
