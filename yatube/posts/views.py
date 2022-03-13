@@ -1,48 +1,28 @@
 #  from django.shortcuts import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 # Импортируем модель, чтобы обратиться к ней
-from .models import Post
+from .models import Post, Group
 # Все функции прописаны в posts/urls.py
 
 
 # Главная страница   (http://127.0.0.1:8000/)
 
 def index(request):
-
-    template = 'posts/index.html'
-    title = 'Это главная страница проекта Yatube'
-    # Словарь с данными принято называть context
+    posts = Post.objects.order_by('-pub_date')[:10]
+    # В словаре context отправляем информацию в шаблон
     context = {
-        # В словарь можно передать переменную
-        'title': title,
-        # А можно сразу записать значение в словарь. Но обычно так не делают
-
+        'posts': posts,
     }
-    return render(request, template, context)
-
-
-#  Страница с постами  (http://127.0.0.1:8000/group/any_slug/)
-#  Знаю, знаю, зря создал новый шаблон, хотел попробывать =)
-
-def group_posts(request, slug):
-    template = 'posts/group_posts.html'
-    title = 'Здесь будет информация о группах проекта Yatube'
-    # Словарь с данными принято называть context
-    context = {
-        # В словарь можно передать переменную
-        'title': title,
-        # А можно сразу записать значение в словарь. Но обычно так не делают
-        # 'text': 'Здесь будет информация о группах проекта Yatube',
-    }
-    # Третьим параметром передаём словарь context
-    return render(request, template, context)
-
-#  def group_posts(request, slug):
-#    return HttpResponse(f'Страница с постом после фильтра по группе')
-
+    return render(request, 'posts/index.html', context)
 
 # Страница с биографией    (http://127.0.0.1:8000/group_list/)
 
-def group_list(request):
-    template = 'posts/group_list.html'
-    return render(request, template)
+
+def group_posts(request, slug):
+    group = get_object_or_404(Group, slug=slug)
+    posts = Post.objects.filter(group=group).order_by('-pub_date')[:10]
+    context = {
+        'group': group,
+        'posts': posts,
+    }
+    return render(request, 'posts/group_list.html', context)
