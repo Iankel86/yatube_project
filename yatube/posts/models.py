@@ -14,35 +14,25 @@ class Post(models.Model):
     # подставлено время и дата создания новой записи
     pub_date = models.DateTimeField(auto_now_add=True)
 
-    #  pub_date = models.DateTimeField( auto_now_add=True,
-    #                                                          verbose_name='Дата публикации')
-
-    # Тип: ForeignKey, ссылка на модель User
-
     author = models.ForeignKey(
                                                    User,
                                                    on_delete=models.CASCADE,
                                                    related_name='posts'
                                                    )
 
-#    author = models.ForeignKey(
-#                                                   User,
-#                                                   on_delete=models.CASCADE,
-#                                                   related_name='posts',
-#                                                   verbose_name='Автор',
-#                                                   )
-
     group = models.ForeignKey(
                                                    'Group',
                                                    blank=True,
                                                    null=True,
                                                    on_delete=models.SET_NULL,
-                                                   related_name='group'
+                                                   related_name='posts'
                                                    )
+
 
 class Group(models.Model):
     title = models.TextField()
     slug = models.SlugField(unique=True)
     description = models.TextField()
+
     def _str_(self) -> str:
         return self.title
